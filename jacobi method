@@ -1,0 +1,44 @@
+import java.io.*;
+class jacobiMethod
+{
+    public static void main(String ars[])throws IOException
+    {
+        DataInputStream in=new DataInputStream(System.in);
+        System.out.println("ENTER THE COEFFICIENT MATRIX");
+        float coeft[][]=new float[3][3];
+        for(int i=0; i<3; i++)
+        for(int j=0; j<3; j++)
+        coeft[i][j]=Float.parseFloat(in.readLine());
+        System.out.println("ENTER THE SOLUTION MATRIX");
+        float soln[][]=new float[3][1];
+        for(int i=0; i<3; i++)
+        soln[i][0]=Float.parseFloat(in.readLine());
+        float matC[][]=new float[3][1];
+        for(int i=0; i<3; i++)
+        matC[i][0]=(soln[i][0]/coeft[i][i]);
+        float matB[][]=new float[3][3];
+        for(int i=0; i<3; i++)
+        for(int j=0; j<3; j++)
+        {
+            if(i==j)
+            matB[i][j]=0;
+            else
+            matB[i][j]=-1*(coeft[i][j]/coeft[i][i]);
+        }
+        float matX[][]=new float[3][1];
+        System.out.println("ENTER INITIAL APPROXIMATIONS");
+        for(int i=0; i<3; i++)
+        matX[i][0]=Float.parseFloat(in.readLine());
+        System.out.println("ENTER NUMBER OF ITERATIONS");
+        int n=Integer.parseInt(in.readLine());
+        for(int m=1; m<=n; m++)
+        {
+            float i1[][]={{matB[0][1]*matX[1][0]+matB[0][2]*matX[2][0]},{matB[1][0]*matX[0][0]+matB[1][2]*matX[2][0]},{matB[2][0]*matX[0][0]+matB[2][1]*matX[1][0]}};
+            float i2[][]={{i1[0][0]+matC[0][0]},{i1[1][0]+matC[1][0]},{i1[2][0]+matC[2][0]}};
+            for(int i=0; i<3; i++)
+            matX[i][0]=i2[i][0];
+        }
+        System.out.println("PRINTING APPROXIMATED VALUES OF X, Y AND Z");
+        System.out.println("x="+matX[0][0]+" y="+matX[1][0]+" z="+matX[2][0]);
+    }
+}
