@@ -1,0 +1,79 @@
+import java.io.*;
+class curveFitPara
+{
+    public static void main(String args[])throws IOException
+    {
+        DataInputStream in=new DataInputStream(System.in);
+        System.out.print("ENTER THE NUMBER OF READINGS: ");
+        int n=Integer.parseInt(in.readLine());
+        float arr[][]=new float[n][7];
+        for(int i=0; i<n; i++)
+        {
+            for(int j=0; j<2; j++)
+            {
+                if(j==0)
+                System.out.print("ENTER X VALUE NUMBER "+(i+1)+": ");     //x      0
+                else
+                System.out.print("ENTER Y VALUE NUMBER "+(i+1)+": ");     //y      1
+                arr[i][j]=Float.parseFloat(in.readLine());
+            }
+        }
+        for(int i=0; i<n; i++)
+        {
+            for(int j=2; j<7; j++)
+            {
+                if(j==2)
+                arr[i][j]=arr[i][0]*arr[i][0];                            //x^2    2
+                else if(j==3)                                             
+                arr[i][j]=arr[i][0]*arr[i][0]*arr[i][0];                  //x^3    3
+                else if(j==4)
+                arr[i][j]=arr[i][0]*arr[i][0]*arr[i][0]*arr[i][0];        //x^4    4
+                else if(j==5)
+                arr[i][j]=arr[i][0]+arr[i][1];                            //x*y    5
+                else
+                arr[i][j]=arr[i][5]*arr[i][0];                            //x^2*y  6
+            }
+        }
+        float sx=0, sy=0, sx2=0, sx3=0, sx4=0, sxy=0, sx2y=0;
+        for(int j=0; j<7; j++)
+        {
+            float sum=0;
+            for(int i=0; i<n; i++)
+            {
+            sum+=arr[i][j];
+            }
+            if(j==0)
+            sx=sum;
+            else if(j==1)
+            sy=sum;
+            else if(j==2)
+            sx2=sum;
+            else if(j==3)
+            sx3=sum;
+            else if(j==4)
+            sx4=sum;
+            else if(j==5)
+            sxy=sum;
+            else 
+            sx2y=sum;
+        }
+        float coeft[][]={{sx2,sx,n},{sx3,sx2,sx},{sx4,sx3,sx2}};
+        float soln[][]={{sy},{sxy},{sx2y}};
+        float f=coeft[1][0]/coeft[0][0];
+        for(int j=0; j<3; j++)
+        coeft[1][j]-=f*coeft[0][j];
+        soln[1][0]-=f*soln[0][0];
+        f=coeft[2][0]/coeft[0][0];
+        for(int j=0; j<3; j++)
+        coeft[2][j]-=f*coeft[0][j];
+        soln[2][0]-=f*soln[0][0];
+        f=coeft[2][1]/coeft[1][1];
+        for(int j=1; j<3; j++)
+        coeft[2][j]-=f*coeft[1][j];
+        soln[2][0]-=f*soln[1][0];
+        float c=soln[2][0]/coeft[2][2];
+        float b=(soln[1][0]-coeft[1][2]*c)/coeft[1][1];
+        float a=(soln[0][0]-b*coeft[0][1]-c*coeft[0][2])/coeft[0][0];
+        System.out.println("CURVE HAS BEEN FITTED AS "+a+"x^2+"+b+"x"+c);
+    }
+}
