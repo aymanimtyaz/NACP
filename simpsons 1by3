@@ -1,0 +1,25 @@
+import java.io.*;
+class simpsons1By3
+{
+    public static void main(String args[])throws IOException
+    {
+        System.out.println("The following function will be integrated using Simpson's 1/3 rule:");
+        System.out.println("f(x)=sin(1-x^2)^(1/2), between the limits 0 and 1");
+        float h=0.02f;
+        float integral=0; float x=0;
+        for(int i=0; i<=50; i++)
+        {
+            System.out.println(x+" "+i);
+            float function=(float)(Math.pow((1-x*x),(1/2)));
+            if(i==0||i==50)
+            integral+=function;
+            else if(i%2==1)
+            integral+=(4*function);
+            else
+            integral+=(2*function);
+            x+=h;
+        }
+        System.out.println("Integral has been evaluated:");
+        System.out.println("I="+integral*(h/3.0f));
+    }
+}
