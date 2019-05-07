@@ -1,0 +1,33 @@
+#include <stdio.h>
+#include <conio.h>
+int main()
+{
+    printf("ENTER ELEMENTS OF COEFFICIENT ARRAY\n");
+    float coeft[3][3];
+    for(int i=0; i<3; i++)
+    for(int j=0; j<3; j++)
+    scanf("%f", &coeft[i][j]);
+    printf("ENTER ELEMENTS OF THE SOLUTION ARRAY\n");
+    float soln[3][1];
+    for(int i=0; i<3; i++)
+    scanf("%f", &soln[i][0]);
+    printf("ENTER THE INITIAL APPROXIMATIONS OF X, Y, AND Z\n");
+    float x, y, z;
+    scanf("%f", &x);
+    scanf("%f", &y);
+    scanf("%f", &z);
+    printf("ENTER THE NUMBER OF ITERATIONS\n");
+    int n;
+    scanf("%d", &n);
+    for(int i=1; i<=n; i++)
+    {
+        x=(soln[0][0]-(coeft[0][1]*y)-(coeft[0][2]*z))/coeft[0][0];
+        y=(soln[1][0]-(coeft[1][0]*x)-(coeft[1][2]*z))/coeft[1][1];
+        z=(soln[2][0]-(coeft[2][0]*x)-(coeft[2][1]*y))/coeft[2][2];
+    }
+    printf("PRINTING THE VALUES OF X, Y, AND Z\n");
+    printf("%f\n", x);
+    printf("%f\n", y);
+    printf("%f", z);
+    return(0);
+}
