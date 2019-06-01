@@ -1,0 +1,14 @@
+        while(iter<=7)
+        {
+            for(int i=0; i<n; i++)
+            {
+                float temp=A[i][n];
+                for(int j=0; j<n; j++)
+                {
+                    if(i!=j)
+                    temp-=(A[i][j]*X[j]);
+                }
+                X[i]=(temp/A[i][i]);
+            }
+            iter++;
+        }
