@@ -1,0 +1,11 @@
+        for(int j=0; j<n-1; j++)
+        {
+            for(int i=j+1; i<n; i++)
+            {
+                float multi=-1*(A[i][j]/A[j][j]);
+                for(int l=0; l<(n+1); l++)
+                {
+                    A[i][l]+=multi*A[j][l];
+                }
+            }
+        }
