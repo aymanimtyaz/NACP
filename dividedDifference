@@ -1,0 +1,35 @@
+import java.io.*;
+class dividedDifference
+{
+    public static void main(String args[])throws IOException
+    {
+        DataInputStream in=new DataInputStream(System.in);
+        System.out.print("ENTER NO. OF POINTS: ");
+        int n=Integer.parseInt(in.readLine());
+        float A[][]=new float[n][n+1];
+        System.out.println("ENTER VALUES OF X AND F(X) ROW WISE");
+        for(int i=0; i<n; i++)
+        for(int j=0; j<2; j++)
+        A[i][j]=Float.parseFloat(in.readLine());
+        int k=n-1;
+        for(int j=2; j<n+1; j++)
+        {
+            for(int i=0; i<k; i++)
+            {
+                A[i][j]=(A[i+1][j-1]-A[i][j-1])/(A[i+j-1][0]-A[i][0]);
+            }
+            k--;
+        }
+        System.out.println("PRINTING DIVIDED DIFFERENCE TABLE");
+        int l=n+1;
+        for(int i=0; i<n; i++)
+        {
+            for(int j=0; j<l; j++)
+            {
+                System.out.print(A[i][j]+"\t");
+            }
+            System.out.println();
+            l--;
+        }
+    }
+}
